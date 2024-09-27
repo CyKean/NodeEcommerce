@@ -11,7 +11,7 @@
  * can place order
 
 include the styles, we will use tailwindcss it's just like bootstrap you will use class 
-just add this link to your <head> of file (<link rel="stylesheet" href="/css/output.css" >)
+just add this link to your <head> of file <link rel="stylesheet" href="/css/output.css" >
 
 you can browse this cheatsheet for the classes https://nerdcave.com/tailwind-cheat-sheet
 

@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard with DataTables</title>
-    <link rel="stylesheet" href="/css/output.css">
-    <!-- <link rel="stylesheet" href="/css/style.css"> -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <%- include('../partials/link') %>
 </head>
 <body class="bg-gray-100">
 
@@ -20,19 +13,7 @@
             <div class="p-6 bg-blue-600 text-white">
                 <h2 class="text-xl font-bold tracking-wide">Dashboard</h2>
             </div>
-            <nav class="mt-6">
-                <ul>
-                    <li class="p-4 hover:bg-blue-100 transition duration-300">
-                        <a href="/admin/dashboard" class="flex items-center text-gray-700 text-md font-semibold">Home</a>
-                    </li>
-                    <li class="p-4 hover:bg-blue-100 transition duration-300">
-                        <a href="#" class="flex items-center text-gray-700 text-md font-semibold">Product</a>
-                    </li>
-                    <li class="p-4 hover:bg-blue-100 transition duration-300">
-                        <a href="#" class="flex items-center text-gray-700 text-md font-semibold">Contact</a>
-                    </li>
-                </ul>
-            </nav>
+            <%- include('../partials/sidebar') %>
         </aside>
 
         <div class="ml-40 flex-1 p-8 overflow-auto h-screen">
@@ -48,8 +29,8 @@
             <section>
                 <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
                     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add Product</h2>
-                    <form action="/admin/add" method="post">
-                        <div class="grid grid-cols-5 gap-2 flex">
+                    <form action="/admin/add" method="post" enctype="multipart/form-data">
+                        <div class="grid grid-cols-6 gap-2 flex">
                             <div class="col-span-1">
                                 <label class="block text-gray-700">Product Name</label>
                                 <input type="text" name="name" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Product Name" required>
@@ -69,6 +50,10 @@
                             <div class="col-span-1">
                                 <label class="block text-gray-700">Category</label>
                                 <input type="text" name="category" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Product Category" required>
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-gray-700">Image</label>
+                                <input type="file" name="image" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             </div>
                         </div>
                         <button type="submit" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">Add Product</button>
@@ -90,7 +75,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                             <% if (Array.isArray(products) && products.length > 0) { %>
                                 <% products.forEach(product => { %>
                                     <tr>
@@ -126,28 +111,7 @@
     <% } %>
     
 
-    <script src="/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-        function confirmDelete(productId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = `/admin/products/delete/${productId}`;
-                toastr.success('Product deleted successfully');
-            } else {
-                toastr.info('Product deletion cancelled');
-            }
-        });
-    }
-    </script>
+    <%- include('../partials/script') %>
     
 </body>
 </html>

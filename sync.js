@@ -1,11 +1,11 @@
-// sync.js
-const sequelize = require('./db');
-const User = require('./models/User');
-const Product = require('./models/Product');
-const Cart = require('./models/Cart');
-const Order = require('./models/Order');
-const OrderItem = require('./models/OrderItem');
+const sequelize = require('./db'); // Make sure the path is correct to your db.js file
+const models = require('./models'); // Import all models (User, Product, Order, etc.)
 
-sequelize.sync({ force: true }).then(() => {
-  console.log('Database synced successfully');
-});
+// Sync the database
+sequelize.sync({ force: false, alter: true})
+    .then(() => {
+        console.log('Database & tables created!');
+    })
+    .catch((error) => {
+        console.error('Error syncing the database:', error);
+    });

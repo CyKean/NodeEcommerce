@@ -1,23 +1,39 @@
 // models/OrderItem.js
-const { DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
-const Product = require('./Product');
-const Order = require('./Order');
 
-const OrderItem = sequelize.define('OrderItem', {
+class OrderItem extends Model {}
+
+OrderItem.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  orderId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'orders',
+      key: 'id',
+    },
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'products',
+      key: 'id',
+    },
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1,
   },
-  price: {
+  subtotal: {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-});
-
-// Associations
-OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
-OrderItem.belongsTo(Product, { foreignKey: 'productId' });
+}, { sequelize, modelName: 'orderitems' });
 
 module.exports = OrderItem;

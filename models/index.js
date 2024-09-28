@@ -1,26 +1,27 @@
 // models/index.js
 const User = require('./User');
-const Product = require('./Product');
 const Cart = require('./Cart');
+const Product = require('./Product');
 const Order = require('./Order');
 const OrderItem = require('./OrderItem');
 
-// User-Order Association
-User.hasMany(Order);
-Order.belongsTo(User);
+// Define relationships
+User.hasOne(Cart, { foreignKey: 'userId' });
+Cart.belongsTo(User, { foreignKey: 'userId' });
 
-// User-Cart Association
-User.hasMany(Cart);
-Cart.belongsTo(User);
+User.hasMany(Order, { foreignKey: 'userId' });
+Order.belongsTo(User, { foreignKey: 'userId' });
 
-// Product-Cart Association
-Product.hasMany(Cart);
-Cart.belongsTo(Product);
+Order.hasMany(OrderItem, { foreignKey: 'orderId' });
+OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
 
-// Order-OrderItem Association
-Order.hasMany(OrderItem);
-OrderItem.belongsTo(Order);
+Product.hasMany(OrderItem, { foreignKey: 'productId' });
+OrderItem.belongsTo(Product, { foreignKey: 'productId' });
 
-// Product-OrderItem Association
-Product.hasMany(OrderItem);
-OrderItem.belongsTo(Product);
+module.exports = {
+  User,
+  Cart,
+  Product,
+  Order,
+  OrderItem,
+};

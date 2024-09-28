@@ -1,20 +1,32 @@
 // models/Order.js
-const { DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
-const User = require('./User');
 
-const Order = sequelize.define('Order', {
-  status: {
-    type: DataTypes.ENUM('pending', 'shipped', 'delivered', 'canceled'),
-    defaultValue: 'pending',
+class Order extends Model {}
+
+Order.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  total: {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
+  },
+  totalAmount: {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-});
-
-// Associations
-Order.belongsTo(User, { foreignKey: 'userId' });
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'pending', // Default status
+  },
+}, { sequelize, modelName: 'orders' });
 
 module.exports = Order;

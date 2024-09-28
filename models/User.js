@@ -1,9 +1,11 @@
 // models/User.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../db'); // Adjust path as necessary
 
-const User = sequelize.define('User', {
-  name: {
+class User extends Model {}
+
+User.init({
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -16,10 +18,13 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  role: {
-    type: DataTypes.ENUM('customer', 'admin'),
-    defaultValue: 'customer',
+  image: {
+    type: DataTypes.STRING, // URL or path to the image
+    allowNull: true,
   },
+}, {
+  sequelize,
+  modelName: 'users',
 });
 
 module.exports = User;

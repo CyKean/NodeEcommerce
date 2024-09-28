@@ -1,19 +1,34 @@
 // models/Cart.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
-const User = require('./User');
-const Product = require('./Product');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../db'); // Adjust the path as necessary
 
-const Cart = sequelize.define('Cart', {
+class Cart extends Model {}
+
+Cart.init({
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users', // Assuming the User model is named 'Users'
+      key: 'id',
+    },
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'products', // Assuming the Product model is named 'Products'
+      key: 'id',
+    },
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1,
+    defaultValue: 1, // Default quantity is 1
   },
+}, {
+  sequelize,
+  modelName: 'carts',
 });
-
-// Associations
-Cart.belongsTo(User, { foreignKey: 'userId' });
-Cart.belongsTo(Product, { foreignKey: 'productId' });
 
 module.exports = Cart;

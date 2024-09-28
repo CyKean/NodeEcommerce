@@ -1,0 +1,19 @@
+    .dataTables_wrapper .dataTables_paginate {
+        margin: 20px 0;
+        text-align: center; /* Center-align pagination controls */
+    }
+
+    .dataTables_wrapper .dataTables_paginate .link-button {
+        padding: 0; /* Remove padding */
+        margin: 0 5px;
+        border: none; /* Remove border */
+        background-color: transparent; /* Transparent background */
+        color: #007bff; /* Link color */
+        text-decoration: underline; /* Underline text */
+        cursor: pointer; /* Pointer cursor */
+        transition: color 0.3s; /* Smooth transition */
+    }
+
+    .dataTables_wrapper .dataTables_paginate .link-button:hover {
+        color: #0056b3; /* Darker color on hover */
+    }

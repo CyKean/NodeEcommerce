@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const adminrouter = require('./routes/adminRoutes');
+const userrouter = require('./routes/userRoutes');
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/', adminrouter);
+app.use('/', userrouter);
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

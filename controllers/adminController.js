@@ -199,7 +199,6 @@ const admin = {
             if (!order) {
                 return res.status(404).send('Order not found');
             }
-    
             res.render('admin/order_details', { order: order }); // Render the view-order page with order details
         } catch (error) {
             console.error(error);

@@ -3,12 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/output.css">
+    <title>E-Commerce Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333;
+            text-align: center; /* Center text */
+        }
+        h1 {
+            color: #4a6f24; /* Darker army green */
+            margin-bottom: 20px;
+        }
+        #searchContainer {
+            margin-bottom: 20px;
+        }
+        #searchInput {
+            width: 250px; /* Search bar width */
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+        #searchInput:focus {
+            border-color: #4a6f24; /* Focus border color */
+        }
+        .product {
+            border: 1px solid #4a6f24; /* Darker army green border */
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px; /* Margin for spacing */
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 220px; /* Set max width */
+            display: inline-block; /* Align products in a row */
+            vertical-align: top; /* Align products properly */
+            transition: transform 0.3s; /* Smooth scale effect */
+        }
+        .product:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+        .product h2 {
+            margin: 0;
+            font-size: 18px; /* Slightly larger title size */
+            color: #4a6f24; /* Darker army green for title */
+        }
+        .product p {
+            font-size: 14px; /* Smaller text size */
+            color: #555; /* Darker gray for description */
+        }
+        .product button {
+            background-color: #4a6f24; /* Darker army green */
+            color: #fff;
+            border: none;
+            padding: 10px 15px; /* Increased button padding */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px; /* Button text size */
+        }
+        .product button:hover {
+            background-color: #6b8e23; /* Slightly lighter green on hover */
+        }
+        #productList {
+            display: flex;
+            justify-content: center; /* Center products */
+            flex-wrap: wrap; /* Wrap to next line if needed */
+        }
+    </style>
 </head>
 <body>
+    <h1>E-Commerce Products</h1>
     
-<h1 class="text-lg text-green-800 font-bold">TEST</h1>
+    <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="filterProducts()">
+    </div>
+    
+    <div id="productList">
+        <!-- Sample products, replace with dynamic data from the database -->
+        <div class="product" data-id="1" data-name="Product 1" data-price="10.00">
+            <h2>Product 1</h2>
+            <p>Description for Product 1</p>
+            <p>Price: $10.00</p>
+            <button onclick="addToCart(1, 'Product 1', 10.00)">Add to Cart</button>
+        </div>
+        <div class="product" data-id="2" data-name="Product 2" data-price="15.00">
+            <h2>Product 2</h2>
+            <p>Description for Product 2</p>
+            <p>Price: $15.00</p>
+            <button onclick="addToCart(2, 'Product 2', 15.00)">Add to Cart</button>
+        </div>
+        <!-- Add more products as needed -->
+    </div>
 
+    <script>
+        function filterProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(input)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function addToCart(productId, productName, productPrice) {
+            const userId = 1; // Replace with actual user ID logic
+            const quantity = 1; // Set default quantity
+            const createdAt = new Date().toISOString();
+            const updatedAt = createdAt;
+
+            // Create a data object to send to the server
+            const cartData = {
+                userId: userId,
+                productId: productId,
+                quantity: quantity,
+                createdAt: createdAt,
+                updatedAt: updatedAt
+            };
+
+            // Send the data to the server (replace 'add_to_cart.php' with your backend script)
+            fetch('add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cartData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display success message from server
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

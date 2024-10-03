@@ -108,8 +108,8 @@
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                         <a href="/admin/orders/view/<%= order.id %>" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
-                                                        <form action="/admin/orders/approve/<%= order.id %>" method="POST" style="display:inline;" id="approve-form-<%= order.id %>">
-                                                            <button type="button" class="text-green-600 hover:text-green-900 mr-3" onclick="showApproveAlert(<%= order.id %>);">Approve</button>
+                                                        <form action="/admin/orders/ship/<%= order.id %>" method="POST" style="display:inline;" id="ship-form-<%= order.id %>">
+                                                            <button type="button" class="text-white bg-blue-500 p-1 rounded-md" onclick="showShipAlert(<%= order.id %>);">Ship</button>
                                                         </form>
                                                         <form action="/admin/orders/cancel/<%= order.id %>" method="POST" style="display:inline;" id="cancel-form-<%= order.id %>">
                                                             <button type="button" class="text-red-600 hover:text-red-900 mr-3" onclick="showCancelAlert(<%= order.id %>);">Cancel</button>
